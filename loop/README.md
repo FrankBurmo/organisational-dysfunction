@@ -4,15 +4,15 @@ An autoresearch-style evaluation + improvement loop for the `organisational-dysf
 inspired by [Karpathy's autoresearch](https://github.com/karpathy/autoresearch): a fixed metric, an
 agent that proposes a change, keep-if-better / revert-if-worse, logged each iteration.
 
-It is **dependency-free** (Python 3 stdlib only) and drives the local `claude` CLI.
+It is **dependency-free** (Node.js built-ins only) and drives the local `copilot` CLI.
 
 ## Files
 
 | file | role |
 |---|---|
 | `../evals/scenarios.json` | the scenario set — positives (with the reference they *should* route to) and near-miss negatives |
-| `harness.py` | evaluation core: routing / triggering probes + the LLM-judge rubric |
-| `run_loop.py` | the keep-best loop (quant) and the judge+suggestions report (qual) |
+| `harness.js` | evaluation core: routing / triggering probes + the LLM-judge rubric |
+| `run_loop.js` | the keep-best loop (quant) and the judge+suggestions report (qual) |
 | `research.md` | the optimiser's brief — what to change, what not to, how to read failures |
 | `history/` | per-iteration reports + `history.jsonl` (created on first run) |
 
@@ -26,22 +26,22 @@ It is **dependency-free** (Python 3 stdlib only) and drives the local `claude` C
 
 ## Running it
 
-> Each run calls `claude -p` many times and consumes tokens/billing. Start small.
+> Each run calls `copilot -p` many times and consumes tokens/billing. Start small.
 
 ```bash
 cd loop
 
 # One-off score, no changes:
-python3 harness.py eval --mode quant
+node harness.js --mode quant
 
 # Quant keep-best loop (auto-tunes description + router; reverts regressions):
-python3 run_loop.py --mode quant --iterations 5
+node run_loop.js --mode quant --iterations 5
 
 # Qualitative judge pass over the actual answers -> writes history/qual-suggestions.md for you:
-python3 run_loop.py --mode qual --limit 8
+node run_loop.js --mode qual --limit 8
 
-# Pin a model (defaults to claude-opus-4-8):
-python3 run_loop.py --mode quant --iterations 5 --model claude-opus-4-8
+# Pin a model (defaults to gpt-5):
+node run_loop.js --mode quant --iterations 5 --model gpt-5
 ```
 
 ## Modes, and why they differ

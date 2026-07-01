@@ -1,6 +1,6 @@
 # Research brief: improving the organisational-dysfunction skill
 
-You are an optimisation agent improving a Claude *skill* — a router (`SKILL.md`) plus 59 reference
+You are an optimisation agent improving a GitHub Copilot *skill* — a router (`SKILL.md`) plus 59 reference
 files — that diagnoses organisational dysfunctions through open sociotechnical systems theory.
 
 This is the `program.md`-equivalent of an autoresearch loop: each iteration you propose ONE focused

@@ -8,16 +8,16 @@
 | **Contents** | 1 skill · 59 dysfunctions |
 | **Version** | 0.1.0 |
 
-A Claude Code plugin of org-design knowledge for diagnosing the recurring ways organisations and teams get stuck — and what to actually do about them.
+A GitHub Copilot agent skill of org-design knowledge for diagnosing the recurring ways organisations and teams get stuck — and what to actually do about them.
 
 It packages **59 named dysfunctions** from Trond Hjorteland's *"Organisational Dysfunction of the Day"* series, all read through the same lens: **open sociotechnical systems theory (OST)** and its DP1 (top-down bureaucracy) vs DP2 (self-managing teams) distinction.
 
 ## What's inside
 
-One sharp, cleanly-triggering skill — `organisational-dysfunction` — built on Anthropic's progressive-disclosure pattern:
+One sharp, cleanly-triggering skill — `organisational-dysfunction` — built on the [Agent Skills](https://agentskills.io/) progressive-disclosure pattern:
 
 - **`SKILL.md`** — the always-loaded router. Holds the shared DP1/DP2 lens once, plus an index of all 59 dysfunctions grouped by theme.
-- **`references/NN-*.md`** — one lean file per dysfunction: how it shows up, the sociotechnical diagnosis (the *why*), and concrete remedies. Claude reads only the one(s) that match.
+- **`references/NN-*.md`** — one lean file per dysfunction: how it shows up, the sociotechnical diagnosis (the *why*), and concrete remedies. Copilot reads only the one(s) that match.
 
 ## When it triggers
 
@@ -25,70 +25,34 @@ Whenever someone describes a workplace or team problem that smells structural ra
 
 ## Installation
 
-How you install depends on which Claude you use. Pick your surface below. In every case the skill then activates **automatically** when you describe an org/team dysfunction — you never call it by name.
+The skill follows the open [Agent Skills](https://agentskills.io/) standard, so it works across GitHub Copilot in VS Code, the Copilot CLI, and the Copilot cloud agent. In every case it activates **automatically** when you describe an org/team dysfunction — you never call it by name.
 
-> **Two words worth knowing:** a **skill** is the unit of knowledge (a `SKILL.md` folder). A **plugin** is a bundle you install from a **marketplace** — which is just a Git repo that lists plugins. This repo is both: it contains the skill *and* acts as a one-plugin marketplace named `sorensen-skills`.
+> **One word worth knowing:** a **skill** is the unit of knowledge — a `SKILL.md` folder that Copilot loads on demand when your task matches its description.
 
-### Claude Code (terminal, VS Code, JetBrains)
+### GitHub Copilot in VS Code
 
-Run these inside Claude Code:
+This repo already ships the skill under `.github/skills/organisational-dysfunction/`, so opening the repo in VS Code is enough — Copilot discovers it automatically, no install step. To confirm, open Chat, type `/skills`, and check that **organisational-dysfunction** is listed.
 
-1. **Add this repo as a marketplace** (once):
-   ```
-   /plugin marketplace add sorensensig/organisational-dysfunction
-   ```
-2. **Install the plugin:**
-   ```
-   /plugin install organisational-dysfunction@sorensen-skills
-   ```
-   (Format is `plugin-name@marketplace-name`.)
-3. If it's not active immediately, **restart Claude Code** (or run `/reload-plugins`).
+To make it available in **every** workspace, copy it into your personal skills folder:
 
-Prefer clicking? Run **`/plugin`** → **Marketplaces** tab → add `sorensensig/organisational-dysfunction` → **Discover** tab → pick **organisational-dysfunction** → Enter.
-Uninstall: `/plugin uninstall organisational-dysfunction@sorensen-skills` · remove marketplace: `/plugin marketplace remove sorensen-skills`.
-
-**No-marketplace alternative** (also works for the local Claude Desktop app, which reads the same folder):
 ```bash
 git clone https://github.com/sorensensig/organisational-dysfunction
-cp -r organisational-dysfunction/skills/organisational-dysfunction ~/.claude/skills/
+cp -r organisational-dysfunction/.github/skills/organisational-dysfunction ~/.copilot/skills/
 ```
 
-### Claude Cowork
+(On Windows PowerShell: `Copy-Item -Recurse organisational-dysfunction/.github/skills/organisational-dysfunction $HOME/.copilot/skills/`.)
 
-1. Open the **Cowork** tab → **Customize** → **Plugins**.
-2. Under **Personal plugins**, click **+** → **Add marketplace** → **Add from a repository**, and enter:
-   `https://github.com/sorensensig/organisational-dysfunction`
-3. Back on the **Plugins** tab, **Browse plugins**, find **organisational-dysfunction**, and click **Install**.
+### GitHub Copilot CLI
 
-### Claude.ai (web) & Claude Desktop app
+Personal skills in `~/.copilot/skills/` are picked up by the CLI as well. Alternatively, install it straight from the repo with GitHub CLI:
 
-These use the **Skills** feature — you upload the packaged skill.
-
-1. **Enable code execution first** (Skills require it):
-   - **Free / Pro / Max:** Settings → **Capabilities** → turn on **"Code execution and file creation"**.
-   - **Team / Enterprise:** an admin enables it under **Organization settings → Skills**.
-2. **Download the packaged skill:** [**organisational-dysfunction-skill.zip**](https://github.com/sorensensig/organisational-dysfunction/releases/latest) (from the latest release).
-3. Go to **Customize → Skills**, click **+** → **Create skill** → **Upload a skill**, and select the ZIP.
-
-Skills uploaded this way are per-user and don't sync to other surfaces.
-*(To build the ZIP yourself: `cd skills && zip -r organisational-dysfunction-skill.zip organisational-dysfunction` — the folder must sit at the ZIP's root.)*
-
-### Team / scripted setup (Claude Code)
-
-To have a team pick it up automatically, add this to the project's `.claude/settings.json` (members are prompted to trust and install it):
-
-```json
-{
-  "extraKnownMarketplaces": {
-    "sorensen-skills": {
-      "source": { "source": "github", "repo": "sorensensig/organisational-dysfunction" }
-    }
-  },
-  "enabledPlugins": {
-    "organisational-dysfunction@sorensen-skills": true
-  }
-}
+```bash
+gh skill install sorensensig/organisational-dysfunction
 ```
+
+### Team / scripted setup
+
+To have a whole team pick it up automatically, commit the skill under `.github/skills/` in your project repo (as this repo does). Copilot discovers project skills there for everyone who opens the repository — no per-user install required.
 
 ## Attribution
 
