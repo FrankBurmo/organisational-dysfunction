@@ -13,6 +13,7 @@ It is **dependency-free** (Node.js built-ins only) and drives the local `copilot
 | `../evals/scenarios.json` | the scenario set — positives (with the reference they *should* route to) and near-miss negatives |
 | `harness.js` | evaluation core: routing / triggering probes + the LLM-judge rubric |
 | `run_loop.js` | the keep-best loop (quant) and the judge+suggestions report (qual) |
+| `validate.js` | static checks (no `copilot` calls) run in CI: frontmatter, references, scenarios |
 | `research.md` | the optimiser's brief — what to change, what not to, how to read failures |
 | `history/` | per-iteration reports + `history.jsonl` (created on first run) |
 
