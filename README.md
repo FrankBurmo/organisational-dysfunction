@@ -36,7 +36,7 @@ This repo already ships the skill under `.github/skills/organisational-dysfuncti
 To make it available in **every** workspace, copy it into your personal skills folder:
 
 ```bash
-git clone https://github.com/sorensensig/organisational-dysfunction
+git clone https://github.com/FrankBurmo/organisational-dysfunction
 cp -r organisational-dysfunction/.github/skills/organisational-dysfunction ~/.copilot/skills/
 ```
 
@@ -47,7 +47,7 @@ cp -r organisational-dysfunction/.github/skills/organisational-dysfunction ~/.co
 Personal skills in `~/.copilot/skills/` are picked up by the CLI as well. Alternatively, install it straight from the repo with GitHub CLI:
 
 ```bash
-gh skill install sorensensig/organisational-dysfunction
+gh skill install FrankBurmo/organisational-dysfunction
 ```
 
 ### Team / scripted setup
